@@ -6,10 +6,12 @@ def audio_recognize(storage_uri, index):
     client = speech_v1.SpeechClient()
 
     # 인코딩한 hertz 따라 값 변경
+    # wav 파일은 따로 sample rate 지정 안 해줘도 config에서 알아서 설정
     # sample_rate_hertz = 44100
     
     language_code = "en-US"
-    # language_code = "en-IN"
+    # language_code = "en-IN" #india
+    # language_code = "ko-KR"
     
     encoding = enums.RecognitionConfig.AudioEncoding.LINEAR16
     # 오디오 채널 옵션은 영상에 따라 유무 선택
@@ -28,9 +30,8 @@ def audio_recognize(storage_uri, index):
 
     script = ""
     for result in response.results:
-        # First alternative is the most probable result
         alternative = result.alternatives[0]
-        print(u"Transcript: {}".format(alternative.transcript))
+        # print(u"Transcript: {}".format(alternative.transcript))
         script = script + alternative.transcript + "\n"
     
     with open("./en-scripts/test-audio/script.txt", "a") as sc:
