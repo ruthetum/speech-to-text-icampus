@@ -9,8 +9,8 @@ import moviepy.editor
 # curPath = os.getcwd()
 # print(curPath)
 
-video = moviepy.editor.VideoFileClip("./video/ssmovie.mp4")
+video = moviepy.editor.VideoFileClip("./video/test-video.mp4")
 
 audio = video.audio
 
-audio.write_audiofile("./audio/ssmovie.wav")
+audio.write_audiofile("./audio/test-audio.wav")
