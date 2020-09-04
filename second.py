@@ -1,5 +1,3 @@
-from video2audio import v2a
-from splitWav import splitAudio
 import stt
 from stt import s2t
 from translate import translateScript
@@ -13,12 +11,6 @@ def main():
     # 일반 강의 : 1 / 국제어 강의 : 2
     TYPE = 2
 
-    # Video to Audio
-    v2a(filename)
-
-    # Split audio file
-    splitAudio(filename)
-
     # Speech to Text
     s2t(filename, TYPE)
 
@@ -28,4 +20,3 @@ def main():
 
     # Textfile to PDF
     t2p(filename)
-
