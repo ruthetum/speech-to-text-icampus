@@ -1,7 +1,9 @@
 video
 audio
+splitedAudio
 en-scripts
 ko-scripts
+env
 
 # Logs
 logs
