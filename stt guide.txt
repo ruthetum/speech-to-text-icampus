@@ -1,0 +1,35 @@
+set GOOGLE_APPLICATION_CREDENTIALS="C:\Users\DELL\Desktop\Develop\fornawab-33fb30199582.json"
+
+설치
+pip install virtualenv
+pip install virtualenvwrapper-win
+
+생성
+virtualenv env
+
+활성화
+.\env\Scripts\activate
+
+종료
+deactivate
+
+pip install --upgrade google-cloud-storage
+pip install google-cloud-speech
+
+등록
+gcloud auth activate-service-account --key-file="C:\Users\DELL\Desktop\Develop\fornawab-33fb30199582.json"
+
+pip install pyaudio
+
+window에서 error 발생할 경우
+pip install pipwin
+pipwin install pyaudio
+
+오디오 분할
+pip install pydub
+
+번역
+pip install googletrans
+
+텍스트 파일 -> PDF파일
+pip install fpdf
