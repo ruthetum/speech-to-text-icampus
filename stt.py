@@ -1,7 +1,6 @@
-from google.cloud import speech_v1
-from google.cloud.speech_v1 import enums
-
-def audio_recognize(storage_uri, index):
+def audio_recognize(storage_uri, filename, TYPE, index):
+    from google.cloud import speech_v1
+    from google.cloud.speech_v1 import enums
 
     client = speech_v1.SpeechClient()
 
@@ -9,9 +8,11 @@ def audio_recognize(storage_uri, index):
     # wav 파일은 따로 sample rate 지정 안 해줘도 config에서 알아서 설정
     # sample_rate_hertz = 44100
     
-    language_code = "en-US"
+    if TYPE == 1:
+        language_code = "ko-KR"
+    else:
+        language_code = "en-US"
     # language_code = "en-IN" #india
-    # language_code = "ko-KR"
     
     encoding = enums.RecognitionConfig.AudioEncoding.LINEAR16
     # 오디오 채널 옵션은 영상에 따라 유무 선택
@@ -34,13 +35,19 @@ def audio_recognize(storage_uri, index):
         # print(u"Transcript: {}".format(alternative.transcript))
         script = script + alternative.transcript + "\n"
     
-    with open("./en-scripts/test-audio/script.txt", "a") as sc:
-            sc.write(script)
+    if TYPE == 1:
+        with open("./ko-scripts/"+ str(filename) +"/script.txt", "a") as sc:
+                sc.write(script)
+    else:
+        with open("./en-scripts/"+ str(filename) +"/script.txt", "a") as sc:
+                sc.write(script)
 
-def main():
-    f = open("./en-scripts/test-audio/script.txt", 'w')
+def s2t(filename, TYPE):
+    if TYPE == 1:
+        f = open("./ko-scripts/"+ str(filename) +"/script.txt", 'w')
+    else:
+        f = open("./en-scripts/"+ str(filename) +"/script.txt", 'w')
     f.close()
+    
     for i in range(1,10):
-        audio_recognize("gs://fornawab/test-audio/part" + str(i) +".wav", i*10)
-
-main()
+        audio_recognize("gs://fornawab/"+ str(filename) +"/part" + str(i) +".wav", filename, TYPE, i*10)
