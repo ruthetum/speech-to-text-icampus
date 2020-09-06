@@ -11,3 +11,5 @@ def main():
 
     # Split audio file
     splitAudio(filename)
+
+main()

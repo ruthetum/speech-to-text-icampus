@@ -20,3 +20,5 @@ def main():
 
     # Textfile to PDF
     t2p(filename)
+
+main()
