@@ -1,4 +1,5 @@
 def t2p(fileName):
+    import os
     from fpdf import FPDF 
     
     # pdf 클래스 선언
@@ -29,5 +30,13 @@ def t2p(fileName):
             else:
                 pdf.cell(200, 10, txt = t[i*60:(i+1)*60], ln = 3, align = 'L')
     
+    try:
+        if not(os.path.isdir("./pdf/"+ str(fileName))):
+            os.makedirs(os.path.join("./pdf/"+ str(fileName)))
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            print("Failed to create directory.")
+            raise
+
     # 저장
     pdf.output("./pdf/"+ str(fileName) +"/script.pdf")
