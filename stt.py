@@ -1,6 +1,10 @@
-def audio_recognize(storage_uri, filename, TYPE, index):
+def audio_recognize(storage_uri, fileName, TYPE, index):
+    import os
     from google.cloud import speech_v1
     from google.cloud.speech_v1 import enums
+
+    credential_path = "C:/Users/DELL/Desktop/Develop/fornawab-33fb30199582.json"
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
     client = speech_v1.SpeechClient()
 
@@ -36,18 +40,34 @@ def audio_recognize(storage_uri, filename, TYPE, index):
         script = script + alternative.transcript + "\n"
     
     if TYPE == 1:
-        with open("./ko-scripts/"+ str(filename) +"/script.txt", "a") as sc:
+        with open("./ko-scripts/"+ str(fileName) +"/script.txt", "a") as sc:
                 sc.write(script)
     else:
-        with open("./en-scripts/"+ str(filename) +"/script.txt", "a") as sc:
+        with open("./en-scripts/"+ str(fileName) +"/script.txt", "a") as sc:
                 sc.write(script)
 
-def s2t(filename, TYPE):
+def s2t(fileName, TYPE):
+    import os
+    try:
+        if not(os.path.isdir("./en-scripts/"+ str(fileName))):
+            os.makedirs(os.path.join("./en-scripts/"+ str(fileName)))
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            print("Failed to create directory.")
+            raise
+    try:
+        if not(os.path.isdir("./ko-scripts/"+ str(fileName))):
+            os.makedirs(os.path.join("./ko-scripts/"+ str(fileName)))
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            print("Failed to create directory.")
+            raise
+
     if TYPE == 1:
-        f = open("./ko-scripts/"+ str(filename) +"/script.txt", 'w')
+        f = open("./ko-scripts/"+ str(fileName) +"/script.txt", 'w')
     else:
-        f = open("./en-scripts/"+ str(filename) +"/script.txt", 'w')
+        f = open("./en-scripts/"+ str(fileName) +"/script.txt", 'w')
     f.close()
     
     for i in range(1,10):
-        audio_recognize("gs://fornawab/"+ str(filename) +"/part" + str(i) +".wav", filename, TYPE, i*10)
+        audio_recognize("gs://fornawab/"+ str(fileName) +"/part" + str(i) +".wav", fileName, TYPE, i*10)

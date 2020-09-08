@@ -1,4 +1,4 @@
-def t2p(filename):
+def t2p(fileName):
     from fpdf import FPDF 
     
     # pdf 클래스 선언
@@ -17,7 +17,7 @@ def t2p(filename):
     pdf.cell(200, 10, txt = "", ln =2 , align='C')
 
     # 텍스트 파일 열기
-    textFile = open("./ko-scripts/"+ str(filename) +"/script.txt", "r", encoding='UTF-8')
+    textFile = open("./ko-scripts/"+ str(fileName) +"/script.txt", "r", encoding='UTF-8')
 
     # 스크립트 내용
     pdf.set_font("nsb", size = 12) # 폰트, 크기 설정
@@ -30,4 +30,4 @@ def t2p(filename):
                 pdf.cell(200, 10, txt = t[i*60:(i+1)*60], ln = 3, align = 'L')
     
     # 저장
-    pdf.output("./pdf/"+ str(filename) +"/script.pdf")
+    pdf.output("./pdf/"+ str(fileName) +"/script.pdf")
